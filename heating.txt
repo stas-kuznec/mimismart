@@ -1,0 +1,62 @@
+/*
+{
+  desc:"Установки температуры пола = температуры стен",
+  tag:"import-script",
+  selectArea:"true",
+  vars:[
+   	{name:"ITEM1",type:"devices-list",filter:["valve-heating"],required:true,desc:"Пол"},
+   	{name:"ITEM2",type:"devices-list",filter:["valve-heating"],required:true,desc:"Стены"},
+   	{name:"ITEM3",type:"devices-list",filter:["valve-heating"],required:false,desc:"Пол-1"},
+   	{name:"ITEM4",type:"devices-list",filter:["valve-heating"],required:false,desc:"Стены-1"},
+   	{name:"ITEM5",type:"devices-list",filter:["valve-heating"],required:false,desc:"Пол-2"},
+   	{name:"ITEM6",type:"devices-list",filter:["valve-heating"],required:false,desc:"Стены-2"},
+   	{name:"ITEM7",type:"devices-list",filter:["valve-heating"],required:false,desc:"Пол-3"},
+   	{name:"ITEM8",type:"devices-list",filter:["valve-heating"],required:false,desc:"Стены-3"},
+    {name:"ITEM9",type:"devices-list",filter:["valve-heating"],required:false,desc:"Пол-4"},
+   	{name:"ITEM10",type:"devices-list",filter:["valve-heating"],required:false,desc:"Стены-4"},
+
+   ]
+}
+*/
+
+V-ID/m:5 {
+
+i8 tempitem1 = [ITEM1.2];
+
+if ( [ITEM2.2] != [ITEM1.2] ){
+	   setStatus(1000:102, {"ITEM2\0t:"A,tempitem1,0});
+}       
+ #ifdef ITEM3
+i8 tempitem3 =[ITEM3.2];
+
+if ( [ITEM4.2] != [ITEM3.2] ){
+	   setStatus(1000:102, {"ITEM4\0t:"A,tempitem3,0});
+}
+#endif
+
+#ifdef ITEM5
+i8 tempitem5 =[ITEM5.2];
+
+if ( [ITEM6.2] != [ITEM5.2] ){
+	   setStatus(1000:102, {"ITEM6\0t:"A,tempitem5,0});
+}
+#endif
+
+#ifdef ITEM7
+i8 tempitem7 =[ITEM7.2];
+
+if ( [ITEM8.2] != [ITEM7.2] ){
+	   setStatus(1000:102, {"ITEM8\0t:"A,tempitem7,0});
+}
+#endif
+
+#ifdef ITEM9
+i8 tempitem9 =[ITEM9.2];
+
+if ( [ITEM10.2] != [ITEM9.2] ){
+	   setStatus(1000:102, {"ITEM10\0t:"A,tempitem9,0});
+}
+#endif
+
+
+}
