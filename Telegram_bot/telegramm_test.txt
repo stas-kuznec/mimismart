@@ -1,0 +1,5 @@
+V-ID/V-ADDR {
+	if (opt(0)) 
+
+setStatus(1000:90, "11111||Test telegram");
+}

@@ -1,0 +1,198 @@
+/*
+{
+	desc:"Работа с телеграмм бот @smart48.ru - Отправка текстовых сообщений, скриншотов с камер и видео трем получателям",
+	tag:"item",
+	selectArea:true,
+	vars:[
+		{type:"comment",text:"Настройка ТЕЛЕГРАММ первый получатель",width:888, style:"color:red;"},
+		{name:"TELEGRAMMID_1",type:"string",required:true,desc:"Укажите id получателя в телеграмм-боте",width:880},		
+		{name:"TXT_1",type:"string",required:true,desc:"Текст уведомления",width:880},
+		{name:"CAM_ACT1",type:"list",required:true,data:{"1":"1 - Только текст","2":"2 - Текст + Фото","3":"3 - Текст + Видео"},desc:"Присылать текст, Текст+фото или Текст+видео",descWidth:170},
+		{name:"CAM1_1",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 1",descWidth:170},
+		{name:"REC1_CAM1",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 1",descWidth:340,width:100},
+		{name:"CAM1_2",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 2",descWidth:170},
+		{name:"REC1_CAM2",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 2",descWidth:340,width:100},
+		{name:"CAM1_3",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 3",descWidth:170},
+		{name:"REC1_CAM3",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 3",descWidth:340,width:100},
+		{name:"CAM1_4",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 4",descWidth:170},
+		{name:"REC1_CAM4",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 4",descWidth:340,width:100},
+		{name:"CAM1_5",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 5",descWidth:170},
+		{name:"REC1_CAM5",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 5",descWidth:340,width:100},
+		
+		{type:"comment",text:"Настройка ТЕЛЕГРАММ второй получатель (Опционально)",width:888, style:"color:red;"},
+		{name:"TELEGRAMMID_2",type:"string",required:false,desc:"Укажите id получателя в телеграмм-боте",width:880},		
+		{name:"TXT_2",type:"string",required:false,desc:"Текст уведомления",width:880},
+		{name:"CAM_ACT2",type:"list",required:false,data:{"1":"1 - Только текст","2":"2 - Текст + Фото","3":"3 - Текст + Видео"},desc:"Присылать текст, Текст+фото или Текст+видео",descWidth:170},
+		{name:"CAM2_1",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 1",descWidth:170},
+		{name:"REC2_CAM1",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 1",descWidth:340,width:100},
+		{name:"CAM2_2",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 2",descWidth:170},
+		{name:"REC2_CAM2",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 2",descWidth:340,width:100},
+		{name:"CAM2_3",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 3",descWidth:170},
+		{name:"REC2_CAM3",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 3",descWidth:340,width:100},
+		{name:"CAM2_4",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 4",descWidth:170},
+		{name:"REC2_CAM3",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 4",descWidth:340,width:100},
+		{name:"CAM2_5",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 5",descWidth:170},
+		{name:"REC2_CAM5",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 5",descWidth:340,width:100},
+		
+		{type:"comment",text:"Настройка ТЕЛЕГРАММ третий получатель (Опционально)",width:888, style:"color:red;"},
+		{name:"TELEGRAMMID_3",type:"string",required:false,desc:"Укажите id получателя в телеграмм-боте",width:880},		
+		{name:"TXT_3",type:"string",required:false,desc:"Текст уведомления",width:880},
+		{name:"CAM_ACT3",type:"list",required:false,data:{"1":"1 - Только текст","2":"2 - Текст + Фото","3":"3 - Текст + Видео"},desc:"Присылать текст, Текст+фото или Текст+видео",descWidth:170},
+		{name:"CAM3_1",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 1",descWidth:170},
+		{name:"REC3_CAM1",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 1",descWidth:340,width:100},
+		{name:"CAM3_2",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 2",descWidth:170},
+		{name:"REC3_CAM2",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 2",descWidth:340,width:100},
+		{name:"CAM3_3",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 3",descWidth:170},
+		{name:"REC3_CAM3",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 3",descWidth:340,width:100},
+		{name:"CAM3_4",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 4",descWidth:170},
+		{name:"REC3_CAM4",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 4",descWidth:340,width:100},
+		{name:"CAM3_5",type:"devices-list",required:false, filter:["rtsp"],desc:"Камера 5",descWidth:170},
+		{name:"REC3_CAM5",type:"number",required:false,min:1,max:60,desc:"Сколько секунд записывать видео - камера 5",descWidth:340,width:100},
+
+		
+		]
+}
+*/
+
+void send() {
+	#ifdef CAM_ACT1
+	#ifdef TELEGRAMMID_1
+	#ifdef TXT_1
+	if (CAM_ACT1==1){
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||||");
+	} else if (CAM_ACT1==2) {
+	#ifdef CAM1_1
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_1||");
+	#endif
+	#ifdef CAM1_2
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_2||");
+	#endif
+	#ifdef CAM1_3
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_3||");
+	#endif
+	#ifdef CAM1_4
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_4||");
+	#endif
+	#ifdef CAM1_5
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_5||");
+	#endif
+	} else if (CAM_ACT1==3) {	
+	#ifdef CAM1_1
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_1||REC1_CAM1");
+	#endif
+	#ifdef CAM1_2
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_2||REC1_CAM2");
+	#endif
+	#ifdef CAM1_3
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_3||REC1_CAM3");
+	#endif
+	#ifdef CAM1_4
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_4||REC1_CAM4");
+	#endif
+	#ifdef CAM1_5
+	setStatus(1000:90, "TELEGRAMMID_1||TXT_1||CAM1_5||REC1_CAM5");
+	#endif
+	}
+	#endif
+	#endif
+	#endif
+	
+	#ifdef CAM_ACT2
+	#ifdef TELEGRAMMID_2
+	#ifdef TXT_2
+	if (CAM_ACT2==1){
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||||");
+	} else if (CAM_ACT2==2) {
+	#ifdef CAM2_1
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_1||");
+	#endif
+	#ifdef CAM2_2
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_2||");
+	#endif
+	#ifdef CAM2_3
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_3||");
+	#endif
+	#ifdef CAM2_4
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_4||");
+	#endif
+	#ifdef CAM2_5
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_5||");
+	#endif
+	} else if (CAM_ACT2==3) {
+	#ifdef CAM2_1
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_1||REC2_CAM1");
+	#endif
+	#ifdef CAM2_2
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_2||REC2_CAM2");
+	#endif
+	#ifdef CAM2_3
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_3||REC2_CAM3");
+	#endif
+	#ifdef CAM2_4
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_4||REC2_CAM4");
+	#endif
+	#ifdef CAM2_5
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_5||REC2_CAM5");
+	#endif
+	}
+	#endif
+	#endif
+	#endif
+	
+	
+	#ifdef CAM_ACT3
+	#ifdef TELEGRAMMID_3
+	#ifdef TXT_3
+	if (CAM_ACT3==1){
+	setStatus(1000:90, "TELEGRAMMID_3||TXT_3||||");
+	} else if (CAM_ACT3==2) {
+	#ifdef CAM3_1
+	setStatus(1000:90, "TELEGRAMMID_3||TXT_3||CAM3_1||");
+	#endif
+	#ifdef CAM3_2
+	setStatus(1000:90, "TELEGRAMMID_3||TXT_3||CAM3_2||");
+	#endif
+	#ifdef CAM3_3
+	setStatus(1000:90, "TELEGRAMMID_3||TXT_3||CAM3_3||");
+	#endif
+	#ifdef CAM3_4
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_4||");
+	#endif
+	#ifdef CAM3_5
+	setStatus(1000:90, "TELEGRAMMID_2||TXT_2||CAM2_5||");
+	#endif
+	} else if (CAM_ACT3==3) {
+	#ifdef CAM3_1
+	setStatus(1000:90, "TELEGRAMMID_3||TXT_#||CAM3_1||REC3_CAM1");
+	#endif
+	#ifdef CAM3_2
+	setStatus(1000:90, "TELEGRAMMID_3||TXT_3||CAM3_2||REC3_CAM2");
+	#endif
+	#ifdef CAM3_3
+	setStatus(1000:90, "TELEGRAMMID_3||TXT_3||CAM3_3||REC3_CAM3");
+	#endif
+	#ifdef CAM3_4
+	setStatus(1000:90, "TELEGRAMMID_3||TXT_3||CAM3_4||REC3_CAM4");
+	#endif
+	#ifdef CAM3_5
+	setStatus(1000:90, "TELEGRAMMID_3||TXT_3||CAM3_5||REC3_CAM5");
+	#endif
+	}
+	#endif
+	#endif
+	#endif
+
+
+}
+
+void off() {
+	setStatus(V-ADDR, 0);
+	}
+
+V-ID/V-ADDR {	
+	if (opt(0)==1 || opt(0)==9){
+		send();
+		delayedCall(off, 2);
+		 
+	}
+}
