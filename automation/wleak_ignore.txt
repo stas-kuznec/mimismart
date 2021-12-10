@@ -1,6 +1,6 @@
 /*
 {
-  desc:"Скрипт игнорирования протечки N секунд",
+  desc:"Скрипт игнорирования протески N секунд",
   tag:"item",
 
   selectArea:true,
@@ -17,13 +17,13 @@ u8 big = PERIOD >> 8;
 void off()
 {
     setStatus(V-ADDR,0);
-	cancelDelayedCall(off);
+    setStatus(LEAK,0);
+	  cancelDelayedCall(off);
 }
 
 V-ID/V-ADDR {
-    if (opt(0)==1){
-        setStatus(LEAK,{small, big});
-        setStatus(LEAK,0);
+    if (opt(0)==1){       
+        setStatus(LEAK,{small, big});     
         delayedCall(off, PERIOD);
     } else {
     cancelDelayedCall(off);
