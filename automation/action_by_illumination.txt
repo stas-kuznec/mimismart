@@ -1,0 +1,138 @@
+/*
+{
+	desc:"Hабор действий в зависимости от показаний датчика освещенности ",
+	tag:"item",
+	selectArea:true,
+	vars:[
+		{type:"comment",text:"Введите период для отслеживания датчика (2-40 сек ):"},
+		{name:"PERIOD_ILUM",type:"number",required:true,min:2,max:40,width:10},
+		{name:"ILUM",type:"devices-list",required:true,width:450,filter:["illumination-sensor"],desc:"Датчик освещенности"},
+				[
+			  {type:"comment",text:"Больше",width:50},
+			  {type:"comment",text:"Меньше",width:50},
+			  {type:"comment",text:"Введите значение освещенности: (10-90%)"},
+			  ],
+			  
+			  [
+				{name:"MORE",type:"checkbox",checked:true,width:50},
+				{type:"comment",text:"",width:30},
+				{name:"LESS",type:"checkbox",checked:false,width:50},
+				{type:"comment",text:"",width:30},
+				{name:"LIGHT_LEVEL",type:"number",required:true,min:10,max:90,width:100},
+			  ],
+			  
+		{name:"ACT",type:"list",required:true,data:{"1":"Включить","0":"Выключить","0xFF":"Изменить состояние"},desc:"Выберите действие",descWidth:170},
+		[
+	  {type:"comment",text:"",width:447},
+	  {type:"comment",text:"с",width:15},
+	  {type:"comment",text:"мс",width:50},
+	], 
+	[
+	  {name:"PERIOD",type:"number",required:true,defaultValue:1,min:1,max:3600,desc:"Время через которое необходимо выполнить действие",descWidth:340,width:100},
+	  {name:"SEK1",type:"checkbox",checked:true,width:50},
+	  {name:"MSK1",type:"checkbox",checked:false,width:50},
+	 ],  
+	 	{type:"comment",text:"Выберите устройства:"},
+
+		{name:"ITEM1",type:"devices-list",required:true, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 1",descWidth:170},
+		{name:"ITEM2",type:"devices-list",required:false, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 2 (опционально)",descWidth:170},
+		{name:"ITEM3",type:"devices-list",required:false, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 3 (опционально)",descWidth:170},
+		{name:"ITEM4",type:"devices-list",required:false, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 4 (опционально)",descWidth:170},
+		{name:"ITEM5",type:"devices-list",required:false, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 5 (опционально)",descWidth:170},
+		{name:"ITEM6",type:"devices-list",required:false, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 6 (опционально)",descWidth:170},
+		{name:"ITEM7",type:"devices-list",required:false, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 7 (опционально)",descWidth:170},
+		{name:"ITEM8",type:"devices-list",required:false, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 8 (опционально)",descWidth:170},
+		{name:"ITEM9",type:"devices-list",required:false, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 9 (опционально)",descWidth:170},
+		{name:"ITEM10",type:"devices-list",required:false, filter:["lamp","script","dimer-lamp","rgb-lamp","air-fan","jalousie"],desc:"Элемент 10 (опционально)",descWidth:170},
+		]
+}
+*/
+
+void action1() {
+	//srvMessage("Значение освещенности больше");
+	
+	#ifdef MORE
+	
+		//srvMessage("Проверяем больше");
+	if (([ILUM:avgs:PERIOD_ILUM])>(LIGHT_LEVEL<<8)){
+		//srvMessage("Значение освещенности больше");
+		setStatus(ITEM1, ACT);
+		#ifdef ITEM2
+		setStatus(ITEM2, ACT);
+		#endif
+		#ifdef ITEM3
+		setStatus(ITEM4, ACT);
+		#endif
+		#ifdef ITEM4
+		setStatus(ITEM4, ACT);
+		#endif
+		#ifdef ITEM5
+		setStatus(ITEM5, ACT);
+		#endif
+		#ifdef ITEM6
+		setStatus(ITEM6, ACT);
+		#endif
+		#ifdef ITEM7
+		setStatus(ITEM7, ACT);
+		#endif
+		#ifdef ITEM8
+		setStatus(ITEM8, ACT);
+		#endif
+		#ifdef ITEM9
+		setStatus(ITEM9, ACT);
+		#endif
+		#ifdef ITEM10
+		setStatus(ITEM10, ACT);
+		#endif
+		setStatus(V-ADDR, 0);
+	}
+
+	#else
+		//srvMessage("Проверяем меньше");
+		if (([ILUM:avgs:PERIOD_ILUM])<(LIGHT_LEVEL<<8)){
+		//srvMessage("Значение освещенности меньше");
+		setStatus(ITEM1, ACT);
+		#ifdef ITEM2
+		setStatus(ITEM2, ACT);
+		#endif
+		#ifdef ITEM3
+		setStatus(ITEM4, ACT);
+		#endif
+		#ifdef ITEM4
+		setStatus(ITEM4, ACT);
+		#endif
+		#ifdef ITEM5
+		setStatus(ITEM5, ACT);
+		#endif
+		#ifdef ITEM6
+		setStatus(ITEM6, ACT);
+		#endif
+		#ifdef ITEM7
+		setStatus(ITEM7, ACT);
+		#endif
+		#ifdef ITEM8
+		setStatus(ITEM8, ACT);
+		#endif
+		#ifdef ITEM9
+		setStatus(ITEM9, ACT);
+		#endif
+		#ifdef ITEM10
+		setStatus(ITEM10, ACT);
+		#endif
+		setStatus(V-ADDR, 0);
+		}
+	#endif
+}
+
+
+V-ID/V-ADDR {
+	if (opt(0)) 
+  	#ifdef SEK1 
+	 delayedCall(action1, PERIOD);
+	#else
+     delayedCallMs(action1, PERIOD);
+	#endif	
+	else {
+  	    cancelDelayedCall(action1);			
+	}   	
+}
