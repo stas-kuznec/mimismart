@@ -16,9 +16,9 @@ u8 big = PERIOD >> 8;
 
 void off()
 {
-    setStatus(V-ADDR,0);
-    setStatus(LEAK,0);
-	  cancelDelayedCall(off);
+  setStatus(V-ADDR,0);
+  setStatus(LEAK,0);
+  cancelDelayedCall(off);
 }
 
 V-ID/V-ADDR {
