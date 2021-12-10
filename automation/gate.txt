@@ -1,0 +1,159 @@
+/*
+{
+	desc:"Скрипт управления воротами/шторами",
+	tag:"import-script",
+	selectArea:true,
+	addItems:[
+		{tag:"item", id:"%TARGET%", name:"NAME", "sub-id":"%SUBID%", type:"virtual", "sub-type":"jalousie120", "length":"1", "image":"gate"},
+	],
+	vars:[
+		{type:"comment",text:"Ввведите название для устройства:"},
+		{name:"NAME",type:"string",required:true,min:3,max:40},
+		{type:"comment",text:"Ввведите время хода мотора:"},
+		{name:"gate-close", type:"devices-list", required:true, filter:["door-sensor"], desc:"Геркон положение закрыто", descWidth:370},
+	    {name:"gate-open", type:"devices-list", required:true, filter:["door-sensor"], desc:"Геркон положение открыто", descWidth:370},
+	    {name:"gate-dev", type:"devices-list", required:true, filter:["lamp"], desc:"Исполнитель", descWidth:370},
+		{name:"GATE",type:"hidden",value:"%TARGET%:%SUBID%"},
+		{name:"CONTROL",type:"list",required:true,data:{"0":"Не контролируем","1":"Контролируем"},desc:"Контролируем время открытых ворот",descWidth:370},
+		{name:"TIMEOPEN",type:"number",required:false,width:100,defaultValue:15,min:1,max:180,desc:"Время контроля открытых ворот"},
+		{type:"comment",text:"Настройка ТЕЛЕГРАМ",width:888, style:"color:red;"},
+		{name:"TELEGRAMM_SCR",type:"devices-list",required:false, filter:["script"],desc:"Скрипт при долгом открытие",descWidth:200,descAlign:"top",width:600},
+	]
+}
+*/
+
+u8 statusOfGate = 0;
+u8 vorota_flag = 0;
+
+
+void clickGate(){
+		setStatus(gate-dev, 0xFF);
+}
+
+void vorotaSignal() {
+	
+	u8 strForMess[150];
+	
+	sprintf(strForMess,"Ворота открыты больше %d минут", TIMEOPEN);
+	setStatus(2047:32,&strForMess);
+	
+	#ifdef
+	setStatus(TELEGRAMM_SCR,1);	
+	#endif
+}
+
+/*
+V-ID/m:1
+{
+	if (CONTROL==1){
+    	if (vorota_flag > 0 && vorota_flag<TIMEOPEN+1) {
+		//srvError("VOROTA FLAG count: %d", vorota_flag);
+			if (vorota_flag==TIMEOPEN) vorotaSignal();
+			++vorota_flag;
+     	}
+    }
+}
+*/
+
+V-ID/GATE {
+	//пришла команда открыть
+	if(opt(0) == 1) {
+		if(statusOfGate == 0 || statusOfGate == 4) { 
+			// если было закрыто - открыть
+			statusOfGate = 3;
+			setStatus(GATE, statusOfGate);
+			setStatus(gate-dev, 0);
+			setStatus(gate-dev, 1);
+			cancelDelayedCall(clickGate);
+			delayedCall(clickGate, 1);		
+		} else if  (statusOfGate == 3 ) { 
+			// если открываеться  - игнор
+			statusOfGate = 3;
+			setStatus(GATE, statusOfGate);
+		} else if  (statusOfGate == 2) { 
+			// если открываеться  - остановить
+			statusOfGate = 4;
+			setStatus(GATE, statusOfGate);
+			setStatus(gate-dev, 0);
+			setStatus(gate-dev, 1);
+			cancelDelayedCall(clickGate);
+			delayedCall(clickGate, 1);
+		}
+	}
+		
+			// пришла команда закрыть
+	if(opt(0) == 0) {
+	
+		if(statusOfGate == 1 || statusOfGate == 4) { 
+			statusOfGate = 2;
+			setStatus(GATE, statusOfGate);
+			setStatus(gate-dev, 0);
+			setStatus(gate-dev, 1);
+			cancelDelayedCall(clickGate);
+			delayedCall(clickGate, 1);	
+			//setStatus(gate-dev, 1);
+			
+		} else if  (statusOfGate == 2) { 
+				//если закрывается игнор
+			statusOfGate = 2;	
+			setStatus(GATE, statusOfGate);		
+
+		} else if  (statusOfGate == 3) { 
+				//если открывается - остановить				
+			statusOfGate = 4;
+			setStatus(GATE, statusOfGate);
+			setStatus(gate-dev, 0);
+			setStatus(gate-dev, 1);
+			cancelDelayedCall(clickGate);
+			delayedCall(clickGate, 1);
+
+
+		}
+	}
+		
+		if(opt(0)==0xFF){
+		
+		statusOfGate = 4;
+		setStatus(GATE, statusOfGate);
+		setStatus(gate-dev, 0);
+		setStatus(gate-dev, 1);
+		cancelDelayedCall(clickGate);
+		delayedCall(clickGate, 1);
+		
+		}	
+}
+
+V-ID/gate-close {
+	//ворота доехали до датчика закрыто
+	if (opt(0) == 0)	{
+	statusOfGate = 0;
+	setStatus(GATE, statusOfGate);
+	setStatus(gate-dev, 0);
+	setStatus(2047:32, {1,"Ворота закрыты"});
+	//vorota_flag = 0;
+	cancelDelayedCall(vorotaSignal);
+	}else{
+		//vorota_flag = 1;
+		setStatus(2047:32, {1,"Ворота открываются"});
+		if (CONTROL == 1){
+		cancelDelayedCall(vorotaSignal);
+		delayedCallM(vorotaSignal,TIMEOPEN);
+		}	
+	}
+}
+
+
+V-ID/gate-open {
+	//ворота доехали до датчика открыто
+	if (opt(0) == 0)	{
+	statusOfGate = 1;
+	setStatus(GATE, statusOfGate);
+	setStatus(gate-dev, 0);
+		//if (CONTROL == 1){
+		//cancelDelayedCall(vorotaSignal);
+		//delayedCall(vorotaSignal,TIMEOPEN);
+		//}	
+
+	//vorota_flag = 1;
+	}
+}
