@@ -23,10 +23,11 @@ void off()
 
 V-ID/V-ADDR {
     if (opt(0)==1){   
-        setStatus(LEAK,0)    
+        setStatus(LEAK,0);    
         setStatus(LEAK,{small, big});     
         delayedCall(off, PERIOD);
     } else {
     cancelDelayedCall(off);
+    setStatus(LEAK,0);
     }
 }
