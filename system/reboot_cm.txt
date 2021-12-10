@@ -1,0 +1,19 @@
+/*
+{
+  desc:"Скрипт перезагрузки СМ при выключенной охране",
+  tag:"item",
+
+  selectArea:true,
+  
+  vars:[
+	{name:"SECURITY",type:"devices-list",required:true,filter:["script"],desc:"Скрипт охраны (при установленной охране перезагрузки СМ не будет)"}, 
+  ]
+}
+
+V-ID/m:20 {
+ 	setStatus(1000:77, {"IncrementTimer"});      
+ 	if ([SECURITY.0] != 1) {		
+ 		setStatus(1000:77, {"RebootCM"});
+ 	}
+                                
+}
