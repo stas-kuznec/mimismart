@@ -91,8 +91,6 @@ void clearAR()
 
 void restart()
 { //повтораня постановка на охрану после сработки.
-	srvError("1Alarm = %d",alarm);
-	srvError("1blink = %d",blink);
     alarm = 0;
     blink = 0;
    	#ifdef TELEGRAMM_ID
@@ -103,21 +101,14 @@ void restart()
    	#endif
    	
  	setStatus(2047:32, {1,"Постановка на охрану после сработки"});    //Шлем ВСем 
- 	
-   	srvError("2Alarm = %d",alarm);
-	srvError("2blink = %d",blink);
-	#ifdef L00
+ 	delayedCall(clearAR,2);
+   	#ifdef L00
    		setStatus(L00,1); //вкл лампочку
    	#endif
    		
    	#ifdef S00
    		setStatus(S00,0); //Выключаем сирену
    	#endif
-
-	delayedCall(clearAR,2);
-
-	srvError("3Alarm = %d",alarm);
-	srvError("3blink = %d",blink);
 }
 
 
@@ -470,6 +461,14 @@ void on()
 			#ifdef MRMR 
 				setStatus(MRMR,{1, VOLUME, 1, SEC_ON_FILE});
 			#endif
+
+			#ifdef L00
+   				setStatus(L00,1); //вкл лампочку
+   			#endif
+   		
+			#ifdef S00
+				setStatus(S00,0); //Выключаем сирену
+			#endif
 	}else{        
         #ifdef TELEGRAMM_ID
         	u8 strForMess[60];
@@ -519,6 +518,13 @@ void off()
 			
 			#ifdef SCRTOWORK
 				setStatus(SCRTOWORK,1);
+			#endif
+			#ifdef L00
+   				setStatus(L00,0); //вкл лампочку
+   			#endif
+   		
+			#ifdef S00
+				setStatus(S00,0); //Выключаем сирену
 			#endif
 	}
 }
@@ -834,8 +840,9 @@ V-ID/
 
 						}
 					}						
-						#endif
+					#endif
 	}
+	clearAR();
 }
 
 
