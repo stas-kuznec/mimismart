@@ -1,0 +1,20 @@
+/*
+{
+  desc:"Интеграция с WiFi-розеткой IoTronic",
+  tag:"item",
+  vars:[	
+	  {name:"DEV_FILE",type:"string","required":false,width:300,filter:"1234567890",min:1,desc:"Имя Внешнего скрипта",descWidth:200},  
+    {name:"DEV_IP",type:"string","required":false,width:300,filter:"1234567890\\.",min:1,desc:"ip WiFi IoTronioc розетки ",descWidth:200},  
+
+  ]
+}
+*/
+
+V-ID/V-ADDR
+{
+    if(opt(0)==1){
+        setStatus(1000:DEV_FILE, "1||DEV_IP"); 
+    }else if(opt(0)==0){
+        setStatus(1000:DEV_FILE, "0||DEV_IP");
+    }
+}
