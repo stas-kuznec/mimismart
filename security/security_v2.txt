@@ -3,35 +3,51 @@
   desc:"Полная охрана c дополнительными функциями по сработке",
   tag:"item",
   selectArea:false,
-  vars:[
-	  
- 	{name:"TOOUT",type:"number",required:false,width:100,defaultValue:15,min:1,max:180,desc:"Время на выход в секундах"},
- 	{name:"SCRTOOUT",type:"devices-list",required:true, filter:["script"],desc:"Скрипт при установки охраны",width:600},
- 	{name:"TOWORK",type:"number",required:false,width:100,defaultValue:15,min:1,max:180,desc:"Время на снятие охраны"},
- 	{name:"SCRTOWORK",type:"devices-list",required:true, filter:["script"],desc:"Скрипт при снятие охраны",width:600},
-   	{type:"comment",text:"выберите датчики движения",width:888, style:"color:red;"},
-   	{name:"MOTION0",type:"devices-list",required:true, filter:["motion-sensor"],desc:"Датчик движения0",width:888},
-   	{name:"TXTM00",type:"string",required:true,desc:"Текст при сработки Датчик движения0",width:880},
-   	{name:"MOTION1",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения1",width:888},
-   	{name:"TXTM01",type:"string",required:false,desc:"Текст при сработки Датчик движения1",width:880},
-	{name:"MOTION2",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения2",width:888},
-	{name:"TXTM02",type:"string",required:false,desc:"Текст при сработки Датчик движения2",width:880},
-   	{name:"MOTION3",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения3",width:888},
-   	{name:"TXTM03",type:"string",required:false,desc:"Текст при сработки Датчик движения3",width:880},
-   	{name:"MOTION4",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения4",width:888},
-   	{name:"TXTM04",type:"string",required:false,desc:"Текст при сработки Датчик движения4",width:880},
-   	{name:"MOTION5",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения5",width:888},
-   	{name:"TXTM05",type:"string",required:false,desc:"Текст при сработки Датчик движения5",width:880},
-   	{name:"MOTION6",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения6",width:888},
-   	{name:"TXTM06",type:"string",required:false,desc:"Текст при сработки Датчик движения6",width:880},
-   	{name:"MOTION7",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения7",width:888},
-   	{name:"TXTM07",type:"string",required:false,desc:"Текст при сработки Датчик движения7",width:880},
-   	{name:"MOTION8",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения8",width:888},
-   	{name:"TXTM08",type:"string",required:false,desc:"Текст при сработки Датчик движения8",width:880},
-   	{name:"MOTION9",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения9",width:888},
-   	{name:"TXTM09",type:"string",required:false,desc:"Текст при сработки Датчик движения9",width:880},
-   	{name:"MOTION10",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения10",width:888},
-   	{name:"TXTM10",type:"string",required:false,desc:"Текст при сработки Датчик движения10",width:880},
+  vars:[	  
+ 	{name:"TIME_ON",type:"number",required:false,width:100,defaultValue:15,min:1,max:180,desc:"Время на выход в секундах"},
+ 	{name:"SCRTO_ON",type:"devices-list",required:false, filter:["script"],desc:"Скрипт при установки охраны",width:600},
+ 	{name:"TIME_OFF",type:"number",required:false,width:100,defaultValue:15,min:1,max:180,desc:"Время на снятие охраны в секундах"},
+ 	{name:"SCRTO_OFF",type:"devices-list",required:false, filter:["script"],desc:"Скрипт при снятие охраны",width:600},   	
+	{name:"MOTION00",type:"devices-list",required:true, filter:["motion-sensor"],desc:"Датчик движения0",width:888},
+   		{name:"TXTM00",type:"string",required:true,desc:"Текст при сработки Датчик движения0",width:880},
+		{name:"PERIOD00",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL00",type:"number",required:true,defaultValue:30,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
+	{name:"MOTION01",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения1",width:888},
+		{name:"TXTM01",type:"string",required:false,desc:"Текст при сработки Датчик движения1",width:880},
+		{name:"PERIOD01",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL01",type:"number",required:true,defaultValue:20,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
+	{name:"MOTION02",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения2",width:888},
+		{name:"TXTM02",type:"string",required:false,desc:"Текст при сработки Датчик движения2",width:880},
+		{name:"PERIOD02",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL02",type:"number",required:true,defaultValue:20,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
+	{name:"MOTION03",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения3",width:888},
+   		{name:"TXTM03",type:"string",required:false,desc:"Текст при сработки Датчик движения3",width:880},
+		{name:"PERIOD03",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL03",type:"number",required:true,defaultValue:20,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
+	{name:"MOTION04",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения4",width:888},
+   		{name:"TXTM04",type:"string",required:false,desc:"Текст при сработки Датчик движения4",width:880},
+		{name:"PERIOD04",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL04",type:"number",required:true,defaultValue:20,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
+   	{name:"MOTION05",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения5",width:888},
+		{name:"TXTM05",type:"string",required:false,desc:"Текст при сработки Датчик движения5",width:880},
+		{name:"PERIOD05",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL05",type:"number",required:true,defaultValue:20,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
+   	{name:"MOTION06",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения6",width:888},
+		{name:"TXTM06",type:"string",required:false,desc:"Текст при сработки Датчик движения6",width:880},
+		{name:"PERIOD06",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL06",type:"number",required:true,defaultValue:20,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
+   	{name:"MOTION07",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения7",width:888},
+		{name:"TXTM07",type:"string",required:false,desc:"Текст при сработки Датчик движения7",width:880},
+		{name:"PERIOD07",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL07",type:"number",required:true,defaultValue:20,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
+   	{name:"MOTION08",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения8",width:888},
+		{name:"TXTM08",type:"string",required:false,desc:"Текст при сработки Датчик движения8",width:880},
+		{name:"PERIOD08",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL08",type:"number",required:true,defaultValue:20,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
+	{name:"MOTION09",type:"devices-list",required:false, filter:["motion-sensor"],desc:"Датчик движения9",width:888},
+		{name:"TXTM09",type:"string",required:false,desc:"Текст при сработки Датчик движения9",width:880},
+		{name:"PERIOD09",type:"number",required:true,defaultValue:1,min:1,max:40,width:150,desc:"Введите среднее время сработки 1-40сек",descWidth:180},
+		{name:"MOUTION_LEVEL09",type:"number",required:true,defaultValue:20,min:10,max:90,width:150,desc:"Введите уровень движения сработки 10-90%",descWidth:180},
    	{type:"comment",text:"выберите герконы при открытии которых сработает охрана",width:888, style:"color:red;"},
    	{name:"G00",type:"devices-list",required:false,filter:["door-sensor"],width:888,desc:"Геркон 0"},
    	{name:"TXTG00",type:"string",required:false,desc:"Текст при сработки Геркона 0",width:880},
@@ -53,379 +69,203 @@
     {name:"TXTG08",type:"string",required:false,desc:"Текст при сработки Геркона 8",width:880},
     {name:"G09",type:"devices-list",required:false,filter:["door-sensor"],width:888,desc:"Геркон 9"},
     {name:"TXTG09",type:"string",required:false,desc:"Текст при сработки Геркона 9",width:880},
-    {name:"G10",type:"devices-list",required:false,filter:["door-sensor"],width:888,desc:"Геркон 10"},
-    {name:"TXTG10",type:"string",required:false,desc:"Текст при сработки Геркона 10",width:880},
-   	{name:"MRMR",type:"devices-list",required:false, filter:["speaker"],desc:"Точка на которую вещать"},
+   	{name:"MRMR",type:"devices-list",required:false, filter:["speaker"],desc:"Медиа-точка на которую вещать"},
 	{name:"VOLUME",type:"number",required:false,width:100,defaultValue:125,min:1,max:250,desc:"Громкость оповещения"},
 	{name:"SEC_ON_FILE",type:"string","required":false,width:300,filter:"QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm\\:\\/a-zA-Z0-9\\№\\;\\`\\!\\@\\#\\$\\%\\^\\&\\(\\)\\+\\=\\,\\.\\-_",min:1,desc:"Файл для проирывния при постановки на  охрану",descWidth:200},
 	{name:"SEC_OFF_FILE",type:"string","required":false,width:300,filter:"QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm\\:\\/a-zA-Z0-9\\№\\;\\`\\!\\@\\#\\$\\%\\^\\&\\(\\)\\+\\=\\,\\.\\-_",min:1,desc:"Файл для проирывния при снятие с охраны",descWidth:200},
 	{name:"SEC_ERR_FILE",type:"string","required":false,width:300,filter:"QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm\\:\\/a-zA-Z0-9\\№\\;\\`\\!\\@\\#\\$\\%\\^\\&\\(\\)\\+\\=\\,\\.\\-_",min:1,desc:"Файл для проирывния при неудачной поппытки постановки на охрану",descWidth:200},
 	{name:"SEC_ALARM_FILE",type:"string","required":false,width:300,filter:"QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm\\:\\/a-zA-Z0-9\\№\\;\\`\\!\\@\\#\\$\\%\\^\\&\\(\\)\\+\\=\\,\\.\\-_",min:1,desc:"Файл для проирывния при сработки",descWidth:200},
-	{type:"comment",text:"Выберите лампу и сирену",width:888, style:"color:red;"},
+	{type:"comment",text:"Выберете лампу и сирену",width:888, style:"color:red;"},
 	{name:"L00",type:"devices-list",required:false,filter:["lamp","script","item"],width:888,desc:"Лампа"},
-	{name:"S00",type:"devices-list",required:false,filter:["lamp","script","item"],width:888,desc:"Сирену"},
+	{name:"S00",type:"devices-list",required:false,filter:["lamp","script","item"],width:888,desc:"Сирена"},
 	{type:"comment",text:"Настройка ТЕЛЕГРАММ",width:888, style:"color:red;"},
-	{name:"TELEGRAMM_ID",type:"string",required:false,desc:"Укажите id получателя в телеграмм-боте",width:880},
-	{name:"TELEGRAMM2_ID",type:"string",required:false,desc:"Укажите id получателя в телеграмм-боте",width:880},
+	{name:"TELEGRAMM_ID00",type:"string",required:false,desc:"Укажите id получателя в телеграмм-боте",width:880},
+	{name:"TELEGRAMM_ID01",type:"string",required:false,desc:"Укажите id получателя в телеграмм-боте",width:880},
+	{name:"TELEGRAMM_ID02",type:"string",required:false,desc:"Укажите id получателя в телеграмм-боте",width:880},
+	{name:"TELEGRAMM_ID03",type:"string",required:false,desc:"Укажите id получателя в телеграмм-боте",width:880},
+	{name:"TELEGRAMM_ID04",type:"string",required:false,desc:"Укажите id получателя в телеграмм-боте",width:880},
 	]
 }
 */
 
-u16 porog = 0x2800; // treshold
 u8 statutOn = 0;
 u8 alarm = 0;
 u8 ohrana = 0;
-u8 blink = 0;//мигание лампочкой 
-u16 exciter_id;//id того, кто ставит на охрану
-u8 moutionAr[10];//массив датчиков движения
-u8 gAr[10];//массив герконов
+u8 blink = 0; //мигание лампочкой 
+u16 exciter_id; //id того, кто ставит на охрану
 
-void clearAR()
-{
-	for(u8 i=0;i<11;++i){
-	moutionAr[i]=0;
-	gAr[i]=0;
+u16 mArID[10]; //массив датчиков движения
+u16 mArADDR[10]; //массив датчиков движения
+u8 mArAllarm[10]; //массив сработки датчика движения
+u32 mArText[10]; //массив текстовых сообщений датчиков движений
+
+
+u16 gArID[10];//массив ID герконов
+u16 gArADDR[10];//массив ID герконов
+u8 gArAllarm[10]; //массив сработки герконов
+u32 gArText[10]; //массив текстовых сообщений герконов
+
+u32 tgAr[5]; //телеграм 
+
+// инициализация всех давтчиков и заполнение массивов если датчики определены в логике
+void onInit(){
+	// инициализация датчиков движения
+	#ifdef MOTION00
+		mArID[0]=ADDR2ID(MOTION00);
+		mArADDR[0]=ADDR2SID(MOTION00);
+		mArText[0] = "TXTM00";		
+	#endif
+	#ifdef MOTION01
+		mArID[1]=ADDR2ID(MOTION01);
+		mArADDR[1]=ADDR2SID(MOTION01);
+		mArText[1] = "TXTM01";
+	#endif
+	#ifdef MOTION02
+		mArID[2]=ADDR2ID(MOTION02);
+		mArADDR[2]=ADDR2SID(MOTION02);
+		mArText[2] = "TXTM02";
+	#endif
+	#ifdef MOTION03
+		mArID[3]=ADDR2ID(MOTION03);
+		mArADDR[3]=ADDR2SID(MOTION03);
+		mArText[3] = "TXTM03";
+	#endif
+	#ifdef MOTION04
+		mArID[4]=ADDR2ID(MOTION04);
+		mArADDR[4]=ADDR2SID(MOTION04);
+		mArText[4] = "TXTM04";
+	#endif
+	#ifdef MOTION05
+		mArID[5]=ADDR2ID(MOTION05);
+		mArADDR[5]=ADDR2SID(MOTION05);
+		mArText[5] = "TXTM05";
+	#endif
+	#ifdef MOTION06
+		mArID[6]=ADDR2ID(MOTION06);
+		mArADDR[6]=ADDR2SID(MOTION06);
+		mArText[6] = "TXTM06";
+	#endif
+	#ifdef MOTION07
+		mArID[7]=ADDR2ID(MOTION07);
+		mArADDR[7]=ADDR2SID(MOTION07);
+		mArText[7] = "TXTM07";
+	#endif
+	#ifdef MOTION08
+		mArID[8]=ADDR2ID(MOTION08);
+		mArADDR[8]=ADDR2SID(MOTION08);
+		mArText[8] = "TXTM08";
+	#endif
+	#ifdef MOTION09
+		mArID[9]=ADDR2ID(MOTION09);
+		mArADDR[9]=ADDR2SID(MOTION09);
+		mArText[9] = "TXTM09";
+	#endif
+	// инициализация door-senser
+	#ifdef G00
+		gArID[0]=ADDR2ID(G00);
+		gArADDR[0]=ADDR2SID(G00);
+		gArText[0] = "TXTG00";
+	#endif
+	#ifdef G01
+		gArID[1]=ADDR2ID(G01);
+		gArADDR[1]=ADDR2SID(G01);
+		gArText[1] = "TXTG01";
+	#endif
+	#ifdef G02
+		gArID[2]=ADDR2ID(G02);
+		gArADDR[2]=ADDR2SID(G02);
+		gArText[2] = "TXTG02";
+	#endif
+	#ifdef G03
+		gArID[3]=ADDR2ID(G03);
+		gArADDR[3]=ADDR2SID(G03);
+		gArText[3] = "TXTG03";
+	#endif
+	#ifdef G04
+		gArID[4]=ADDR2ID(G04);
+		gArADDR[4]=ADDR2SID(G04);
+		gArText[4] = "TXTG04";
+	#endif
+	#ifdef G05
+		gArID[5]=ADDR2ID(G05);
+		gArADDR[5]=ADDR2SID(G05);
+		gArText[5] = "TXTG05";
+	#endif
+	#ifdef G06
+		gArID[6]=ADDR2ID(G06);
+		gArADDR[6]=ADDR2SID(G06);
+		gArText[6] = "TXTG06";
+	#endif
+	#ifdef G07
+		gArID[7]=ADDR2ID(G07);
+		gArADDR[7]=ADDR2SID(G07);
+		gArText[7] = "TXTG07";
+	#endif
+	#ifdef G08
+		gArID[8]=ADDR2ID(G08);
+		gArADDR[8]=ADDR2SID(G08);
+		gArText[8] = "TXTG08";
+	#endif
+	#ifdef G09
+		gArID[9]=ADDR2ID(G09);
+		gArADDR[9]=ADDR2SID(G09);
+		gArText[9] = "TXTG09";
+	#endif
+	// инициализация Telegram
+	#ifdef TELEGRAMM_ID00
+		tgAr[0] = "TELEGRAMM_ID00";
+	#endif
+	#ifdef TELEGRAMM_ID01
+		tgAr[1] = "TELEGRAMM_ID01";
+	#endif
+	#ifdef TELEGRAMM_ID02
+		tgAr[2] = "TELEGRAMM_ID02";
+	#endif
+	#ifdef TELEGRAMM_ID03
+		tgAr[3] = "TELEGRAMM_ID03";
+	#endif
+	#ifdef TELEGRAMM_ID04
+		tgAr[4] = "TELEGRAMM_ID04";
+	#endif
+}
+// отсыльщик в телеграм
+void tgSender(u8 msg){
+	//srvError("--!! tgSender - Start !!--");
+	u8 strForMess[200];	
+	u8 len = sizeof(strForMess);
+	for(u8 i=0;i<len;++i){
+		strForMess[i]=0;
+	}
+	for(u8 i=0;i<5;++i){
+		if (tgAr[i] !=0 ){		
+		sprintf(strForMess,"%s||%s",tgAr[i],msg);
+		//srvMessage(&strForMess); // вывод собранной строки в лог
+		setStatus(1000:90, &strForMess); 
+		}
+	}
+}
+// очищает массив датчиков сработки
+void clearAR(){
+	for(u8 i=0;i<10;++i){
+	mArAllarm[i]=0;
+	gArAllarm[i]=0;
+	srvError(mArAllarm[i]);
+	srvError(gArAllarm[i]);
 	}
 }
 
-
-void restart()
-{ //повтораня постановка на охрану после сработки.
-    alarm = 0;
-    blink = 0;
-   	#ifdef TELEGRAMM_ID
-   	setStatus(1000:90, "TELEGRAMM_ID||Постановка на охрану после сработки"); 
-   	#endif
-   	#ifdef TELEGRAMM2_ID
-   	setStatus(1000:90, "TELEGRAMM2_ID||Постановка на охрану после сработки"); 
-   	#endif
-   	
- 	setStatus(2047:32, {1,"Постановка на охрану после сработки"});    //Шлем ВСем 
- 	delayedCall(clearAR,2);
-   	#ifdef L00
-   		setStatus(L00,1); //вкл лампочку
-   	#endif
-   		
-   	#ifdef S00
-   		setStatus(S00,0); //Выключаем сирену
-   	#endif
-}
-
-
-//Сработка охраны
-void alarm()
-{
-	if(moutionAr[0]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM00"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM00"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM00"); 
-		#endif
-	}
-	
-	#ifdef TXTM01
-	if(moutionAr[1]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM01"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM01"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM01"); 
-		#endif
-	}
-	#endif
-	
-	#ifdef TXTM02
-	if(moutionAr[2]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM02"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM02"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM02"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTM03
-	if(moutionAr[3]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM03"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM03"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM03"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTM04
-	if(moutionAr[4]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM04"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM04"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM04"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTM05
-	if(moutionAr[5]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM05"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM05"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM05"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTM06
-	if(moutionAr[6]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM06"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM06"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM06"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTM07
-	if(moutionAr[7]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM07"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM07"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM07"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTM08
-	if(moutionAr[8]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM08"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM08"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM08"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTM09
-	if(moutionAr[9]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM09"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM09"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM09"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTM10
-	if(moutionAr[10]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTM10"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTM10"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTM10"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG00
-	if(gAr[0]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG00"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG00"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG00"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG01
-	if(gAr[1]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG01"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG01"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG01"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG02
-	if(gAr[2]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG02"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG02"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG02"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG03
-	if(gAr[3]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG03"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG03"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG03"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG04
-	if(gAr[4]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG04"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG04"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG04"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG05
-	if(gAr[5]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG05"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG05"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG05"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG06
-	if(gAr[6]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG06"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG06"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG06"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG07
-	if(gAr[7]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG07"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG07"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG07"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG08
-	if(gAr[8]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG08"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG08"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG08"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG09
-	if(gAr[9]==1)
-	{ 
-		setStatus(2047:32, {1,"TXTG09"});
-		#ifdef TELEGRAMM_ID
-			setStatus(1000:90, "TELEGRAMM_ID||TXTG09"); 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(1000:90, "TELEGRAMM2_ID||TXTG09"); 
-		#endif
-	}
-	#endif
-
-	#ifdef TXTG10
-	if(gAr[10]==1)
-	{ 
-		setStatus(1000:90, "TXTG10");
-		
-		#ifdef TELEGRAMM_ID
-			setStatus(2047:32, {1,"TELEGRAMM_ID||TXTG10"});
-			 
-		#endif
-		#ifdef TELEGRAMM2_ID
-			setStatus(2047:32, {1,"TELEGRAMM2_ID||TXTG10"});
-			 
-		#endif
-	}
-	#endif																											
-	blink = 1;	
-	#ifdef MRMR
-		setStatus(MRMR,{1, VOLUME, 0, SEC_ALARM_FILE});
-	#endif  	
-	#ifdef S00
-   		setStatus(S00,1); //Включаем сирену
-   	#endif
-   	
-   	clearAR();
-}
-
-//постановка на охрану
-void on()
-{
-    if(([MOTION0]<porog) 
-    	#ifdef MOTION1 && ([MOTION1]<porog) #endif
-    	#ifdef MOTION2 && ([MOTION2]<porog) #endif 
-    	#ifdef MOTION3 && ([MOTION3]<porog) #endif
-    	#ifdef MOTION4 && ([MOTION4]<porog) #endif
-    	#ifdef MOTION5 && ([MOTION5]<porog) #endif
-    	#ifdef MOTION6 && ([MOTION6]<porog) #endif
-    	#ifdef MOTION7 && ([MOTION7]<porog) #endif
-    	#ifdef MOTION8 && ([MOTION8]<porog) #endif
-    	#ifdef MOTION9 && ([MOTION9]<porog) #endif
-    	#ifdef MOTION10 && ([MOTION10]<porog) #endif
+// постановка на охрану
+void on(){	
+	if(([MOTION00]<MOUTION_LEVEL00<<8) 
+    	#ifdef MOTION01 && ([MOTION01]<MOUTION_LEVEL01<<8) #endif
+    	#ifdef MOTION02 && ([MOTION02]<MOUTION_LEVEL02<<8) #endif 
+    	#ifdef MOTION03 && ([MOTION03]<MOUTION_LEVEL03<<8) #endif
+    	#ifdef MOTION04 && ([MOTION04]<MOUTION_LEVEL04<<8) #endif
+    	#ifdef MOTION05 && ([MOTION05]<MOUTION_LEVEL05<<8) #endif
+    	#ifdef MOTION06 && ([MOTION06]<MOUTION_LEVEL06<<8) #endif
+    	#ifdef MOTION07 && ([MOTION07]<MOUTION_LEVEL07<<8) #endif
+    	#ifdef MOTION08 && ([MOTION08]<MOUTION_LEVEL08<<8) #endif
+    	#ifdef MOTION09 && ([MOTION09]<MOUTION_LEVEL09<<8) #endif
     	#ifdef G00 && [G00.0]==0 #endif
     	#ifdef G01 && [G01.0]==0 #endif
     	#ifdef G02 && [G02.0]==0 #endif
@@ -436,443 +276,303 @@ void on()
     	#ifdef G07 && [G07.0]==0 #endif
     	#ifdef G08 && [G08.0]==0 #endif
     	#ifdef G09 && [G09.0]==0 #endif
-    	#ifdef G10 && [G10.0]==0 #endif
-		)
-    {				
+		){	
 		ohrana = 1;
-			#ifdef TELEGRAMM_ID
-				u8 strForMess[60];
-				sprintf(strForMess,"%d||Охрана установлена!",TELEGRAMM_ID);
-				setStatus(1000:90, &strForMess); 
-			#endif
-			#ifdef TELEGRAMM2_ID
-				//u8 strForMess[60];
-				sprintf(strForMess,"%d||Охрана установлена!",TELEGRAMM2_ID);
-				setStatus(1000:90, &strForMess); 
-			#endif
-			setStatus(@exciter_id:32, {5,"Охрана установлена! "}); //сообщение тому кто ставит
-			
-			blink = 0; //не мигать лампой
-			
-			#ifdef SCRTOOUT
-				setStatus(SCRTOOUT,1);
-			#endif
-				
-			#ifdef MRMR 
-				setStatus(MRMR,{1, VOLUME, 1, SEC_ON_FILE});
-			#endif
-
-			#ifdef L00
-   				setStatus(L00,1); //вкл лампочку
-   			#endif
-   		
-			#ifdef S00
+		tgSender("Охрана установлена");
+		setStatus(@exciter_id:32, {5,"Охрана установлена! "}); //сообщение тому кто ставит
+		blink = 0; //не мигать лампой
+		#ifdef SCRTO_ON
+			setStatus(SCRTO_ON,1);// выполняем скрипт после включения охраны 
+		#endif
+		#ifdef MRMR 
+			setStatus(MRMR,{1, VOLUME, 1, SEC_ON_FILE}); // проигрываем на медиаточке
+		#endif			
+		#ifdef L00
+			setStatus(L00,1); //вкл лампочку
+		#endif   		
+		#ifdef S00
+			setStatus(S00,0); //Выключаем сирену
+		#endif
+	}else{
+		tgSender("!! Охране НЕ УСТАНОВЛЕНА !! - есть движение");
+		setStatus(@exciter_id:32, {5,"!! Охране НЕ УСТАНОВЛЕНА !! - есть движение"}); //сообщение тому кто ставит
+		#ifdef L00
+   				setStatus(L00,0); //вкл лампочку
+   		#endif
+		#ifdef S00
 				setStatus(S00,0); //Выключаем сирену
-			#endif
-	}else{        
-        #ifdef TELEGRAMM_ID
-        	u8 strForMess[60];
-			sprintf(strForMess,"%d||Не успели выйти! - %d:", TELEGRAMM_ID, exciter_id);
-			setStatus(1000:90, &strForMess); 
 		#endif
-		#ifdef TELEGRAMM2_ID
-			u8 strForMess[60];
-			sprintf(strForMess,"%d||Не успели выйти! - %d:", TELEGRAMM2_ID, exciter_id);
-			setStatus(1000:90, &strForMess); 
+		#ifdef MRMR 
+			setStatus(MRMR,{1, VOLUME, 1, SEC_ERR_FILE}); // проигрываем на медиаточке
 		#endif
-		setStatus(@exciter_id:32, {5,"Не успели выйти! "}); //сообщение тому кто ставит
-
-		blink = 1; //мигать лампой
-
-		setStatus(V-ADDR,0);			 
-			#ifdef MRMR 
-				setStatus(MRMR,{1, VOLUME, 1, SEC_ERR_FILE});
-			#endif
-	}
+		setStatus(V-ADDR,0);// выключаем скрипт			 
+	}			
 }
-
-//снятие
-void off()
+// перестановка на охрану после сработки
+void restart()
 {
-    if ([V-ADDR]==0)
-    {
- 		#ifdef TELEGRAMM_ID
- 			u8 strForMess_off[60];
- 			sprintf(strForMess_off,"%d||Охрана снята!-%d:",TELEGRAMM_ID, exciter_id);
- 			setStatus(1000:90, &strForMess_off); 
-		#endif
-		#ifdef TELEGRAMM2_ID
- 			//u8 strForMess_off[60];
- 			sprintf(strForMess_off,"%d||Охрана снята!-%d:",TELEGRAMM2_ID, exciter_id);
- 			setStatus(1000:90, &strForMess_off); 
-		#endif
-		setStatus(@exciter_id:32, {5, "Охрана снята!"});//Шлем тому кто снял
-		
+	srvError("--!! ERR RESTART !!--");	
+	alarm=0;
+	blink=0;
+	#ifdef L00
+		setStatus(L00,1); //вкл лампочку
+	#endif
+	#ifdef S00
+		setStatus(S00,0); //Выключаем сирену
+	#endif	
+	clearAR();// очищаем все массивы сработоки что бы не было повторной сработки
+}
+// снятие с охраны
+void off(){
+    if ([V-ADDR]==0){
+		alarm=0;
+		blink=0;
+		exciter_id = exciterId();//id того, кто ставит на охрану
+		u8 strForMess[60];
+ 		sprintf(strForMess,"Охрана снята! - %d", exciter_id);
+ 		tgSender(strForMess);
+		setStatus(@exciter_id:32, {5, "Охрана снята!"});//Шлем тому кто снял		
 		cancelDelayedCall(on);
 		cancelDelayedCall(alarm);
 		delayedCall(clearAR,2);
 		cancelDelayedCall(restart);	
-			#ifdef MRMR 
-				setStatus(MRMR,{1, VOLUME, 1, "SEC_OFF_FILE"});
-			#endif
-			
-			#ifdef SCRTOWORK
-				setStatus(SCRTOWORK,1);
-			#endif
-			#ifdef L00
-   				setStatus(L00,0); //вкл лампочку
-   			#endif
-   		
-			#ifdef S00
-				setStatus(S00,0); //Выключаем сирену
-			#endif
+		#ifdef MRMR 
+			setStatus(MRMR,{1, VOLUME, 1, SEC_OFF_FILE}); // проигрываем на медиаточке
+		#endif			
+		#ifdef SCRTO_OFF
+			setStatus(SCRTO_OFF,1); // выполняем скрипт после отключения охраны
+		#endif
+		#ifdef L00
+			setStatus(L00,0); //вкл лампочку
+		#endif
+		#ifdef S00
+			setStatus(S00,0); //Выключаем сирену
+		#endif
 	}
 }
-
-
-//сработака
-V-ID/
-{
-	if ([V-ADDR]==1 && ohrana==1)
-	{   
-					if (([~MOTION0:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[0]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}
-					
-					#ifdef MOTION1 
-					if (([~MOTION1:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[1]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-					
-					#ifdef MOTION2 
-					if (([~MOTION1:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[2]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-
-					#ifdef MOTION3 
-					if (([~MOTION3:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[3]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif						
-
-					#ifdef MOTION4 
-					if (([~MOTION4:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[4]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-					#ifdef MOTION5 
-					if (([~MOTION5:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[5]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-
-					#ifdef MOTION6 
-					if (([~MOTION6:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[6]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-					#ifdef MOTION7 
-					if (([~MOTION7:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[7]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-					#ifdef MOTION8 
-					if (([~MOTION8:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[8]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-						
-					#ifdef MOTION9 
-					if (([~MOTION9:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[9]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-					#ifdef MOTION10 
-					if (([~MOTION10:avgs:5]>porog))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							moutionAr[10]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-						
-					#ifdef G00 
-
-					//srvMessage("%02x", G00.1);
-					if (([~G00]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[0]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-						
-					#ifdef G01 
-					if (([~G01]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[1]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-						
-					#ifdef G02 
-					if (([~G02]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[2]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-						
-					#ifdef G03 
-					if (([~G03]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[3]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif					
-						
-					#ifdef G04 
-					if (([~G04]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[4]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-						
-					#ifdef G05 
-					if (([~G05]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[5]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-						
-					#ifdef G06 
-					if (([~G06]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[6]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-
-						
-					#ifdef G07 
-					if (([~G07]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[7]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-
-						
-					#ifdef G08 
-					if (([~G08]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[8]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-						
-					#ifdef G09 
-					if (([~G09]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[9]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-						#endif
-
-						
-					#ifdef G10 
-					if (([~G10]==1))
-					{ 
-						if (alarm==0 && ohrana==1 ) {
-							delayedCallR (alarm, TOWORK); 
-							alarm=1; 
-							gAr[10]=1;
-							cancelDelayedCall(restart);
-							delayedCallM(restart,1); //вырубаем сирену переставляем на охрану
-
-						}
-					}						
-					#endif
-	}
-	clearAR();
-}
-
-
-V-ID/V-ADDR
-{
+// контроль скрипта
+V-ID/V-ADDR{
 	exciter_id = exciterId();//id того, кто ставит на охрану
-
-	if(opt(0)==1)
-	{		 
+	if(opt(0)==1){		 
 		 statutOn = 1;
-		 delayedCall (on, TOOUT); //время на выход
-	}else
-		if (statutOn==1)
-			{
+		 delayedCall(on,TIME_ON); //время на выход
+	}else if (statutOn==1){
 				statutOn=0;
 				ohrana=0;
 				alarm=0;
 				blink = 0;
 				off();
+	}
+}
+// оповещение о сработке
+void alarm(){
+	//srvError("--!! ALLARM !!--");
+	if (ohrana ==1){
+		u8 lenM = sizeof(mArAllarm);
+		for(u8 i=0;i<lenM;++i){
+			if(mArAllarm[i]==1){ 
+			blink=1;
+			#ifdef MRMR
+			setStatus(MRMR,{1, VOLUME, 0, SEC_ALARM_FILE});
+			#endif  	
+			#ifdef S00
+			//srvError("--!! ALLARM - серена !!--");
+   			setStatus(S00,1); //Включаем сирену
+   			#endif
+			
+			mArAllarm[i]==0;
+
+			u8 strMText[60];
+			sprintf(strMText,"%s", mArText[i]);
+			//srvError("--!! ALLARM - строка !!--");
+			cancelDelayedCall(restart);
+			//srvError("--!! ALLARM - cancelDelayedCall !!--");
+			delayedCall(restart,30); //перестановка на охрану после сработке
+			//srvError("--!! ALLARM - delayedCall !!--");
+			setStatus(2047:32, { 5, "Сработала охрана"});
+			//srvMessage("%s", strMText);
+			//srvMessage("%s", mArText[i]);
+			//srvError(mArText[i]);
+			//setStatus(2047:32, { 1, mArText[i] });
+			//srvError("--!! ALLARM - отправка в телеграм !!--");
+			tgSender(&strMText);
+			//srvError("--!! ALLARM - после отправки в телеграм !!--");
 			}
+		}
+		u8 lenG = sizeof(gArAllarm);
+		for(u8 i=0;i<lenG;++i){
+			if(gArAllarm[i]==1){ 
+			blink=1;
+			#ifdef MRMR
+			setStatus(MRMR,{1, VOLUME, 0, SEC_ALARM_FILE});
+			#endif  	
+			#ifdef S00
+			//srvError("--!! ALLARM - серена !!--");
+   			setStatus(S00,1); //Включаем сирену
+   			#endif
+			
+			gArAllarm[i]==0;
+			cancelDelayedCall(restart);
+			delayedCall(restart,30); //перестановка на охрану после сработке
+			u8 strGText[60];
+			sprintf(strGText,"%s", gArText[i]);
+			setStatus(2047:32, {5,"Сработала охрана"});
+			tgSender(&strGText);
+			}
+		}
+
+	}		
+}
+//анализ датчиков
+V-ID/{
+	if ([V-ADDR]==1 && ohrana==1 && alarm==0){  
+		if (([~MOTION00:avgs:PERIOD00]>MOUTION_LEVEL00<<8)){ 		
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[0]=1;
+			alarm=1;
+		}
+		#ifdef MOTION01
+		if (([~MOTION01:avgs:PERIOD01]>MOUTION_LEVEL01<<8)){ 				
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[1]=1;	
+			alarm=1;		
+		}
+		#endif
+		#ifdef MOTION02
+		if (([~MOTION02:avgs:PERIOD02]>MOUTION_LEVEL02<<8)){ 				
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[2]=1;
+			alarm=1;			
+		}
+		#endif
+		#ifdef MOTION03
+		if (([~MOTION03:avgs:PERIOD03]>MOUTION_LEVEL03<<8)){ 			
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[3]=1;	
+			alarm=1;		
+		}
+		#endif
+		#ifdef MOTION04
+		if (([~MOTION04:avgs:PERIOD04]>MOUTION_LEVEL04<<8)){ 			
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[4]=1;	
+			alarm=1;		
+		}
+		#endif
+		#ifdef MOTION05
+		if (([~MOTION05:avgs:PERIOD05]>MOUTION_LEVEL05<<8)){ 			
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[5]=1;	
+			alarm=1;		
+		}
+		#endif
+		#ifdef MOTION06
+		if (([~MOTION06:avgs:PERIOD06]>MOUTION_LEVEL06<<8)){ 			
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[6]=1;	
+			alarm=1;		
+		}
+		#endif
+		#ifdef MOTION07
+		if (([~MOTION07:avgs:PERIOD07]>MOUTION_LEVEL07<<8)){ 			
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[7]=1;	
+			alarm=1;		
+		}
+		#endif
+		#ifdef MOTION08
+		if (([~MOTION08:avgs:PERIOD08]>MOUTION_LEVEL08<<8)){ 			
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[8]=1;	
+			alarm=1;		
+		}
+		#endif
+		#ifdef MOTION09
+		if (([~MOTION09:avgs:PERIOD09]>MOUTION_LEVEL09<<8)){ 			
+			delayedCall(alarm, TIME_OFF);
+			mArAllarm[9]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G00
+		if ([G00.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[0]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G01
+		if ([G01.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[1]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G02
+		if ([G02.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[2]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G03
+		if ([G03.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[3]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G04
+		if ([G04.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[4]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G05
+		if ([G05.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[5]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G06
+		if ([G06.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[6]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G07
+		if ([G07.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[7]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G08
+		if ([G08.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[8]=1;			
+			alarm=1;
+		}
+		#endif
+		#ifdef G09
+		if ([G09.0]==1){ 			
+			delayedCall(alarm, TIME_OFF);
+			gArAllarm[9]=1;			
+			alarm=1;
+		}
+		#endif
+	}		
 }
 
-
+#ifdef L00
 V-ID/s:1 //таймер, мигания лампой
 {
-		 #ifdef L00
    			if (blink==1)
 	   		{
    			setStatus(L00,0xff); //вкл лампочку
    			}
-   		#endif
-
 }
+#endif
