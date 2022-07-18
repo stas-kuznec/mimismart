@@ -1,0 +1,109 @@
+/*
+{
+	desc:"Скрипт управления воротами/шторами (2 исполнителя обработка открытия по времени) НЕ ИСПОЛЬЗОВАТЬ ДЛЯ ФАЗНЫХ МОТОРОВ",
+	tag:"import-script",
+	selectArea:true,
+	addItems:[
+		{tag:"item", id:"%TARGET%", name:"NAME", "sub-id":"%SUBID%", type:"virtual", "sub-type":"jalousie120", "length":"1"},
+	],
+	vars:[
+		{"type":"comment","text":"ВАЖНО! Обратите внимание, для остановки моторов используется замыкание 2х контактов. НЕ ИСПОЛЬЗОВАТЬ ДАННЫЙ СКИПТ ДЛЯ ФАЗНЫХ МОТОРОВ","width":"500","style":"color:red;"},
+		{type:"comment",text:"Ввведите название для устройства:"},
+		{name:"NAME",type:"string",required:true,min:3,max:40},
+		{type:"comment",text:"Ввведите время хода мотора (сек):"},
+		{name:"TIME",type:"number",required:true,min:0},
+		{type:"comment",text:"Ввведите время замыкания контактов (мсек):"},
+		{name:"TIME_CLICK",type:"number",required:true,min:0},
+		{name:"GATE-DEV-OPEN", type:"devices-list", required:true, filter:["lamp","script"], desc:"Исполнитель Открытия", descWidth:370},
+		{name:"GATE-DEV-CLOSE", type:"devices-list", required:true, filter:["lamp","script"], desc:"Исполнитель Закрытия", descWidth:370},
+		{name:"JALOUSIE",type:"hidden",value:"%TARGET%:%SUBID%"}
+	]
+}
+*/
+
+/*
+Состояние устройства.
+0 - закрыто
+1 - открыто
+2 - закрывается
+3 - открывается
+4 - по середине
+5 - неизвестное состояние (СМ7 после перезагрузки по питанию)
+*/
+u8 statusOfJalousie = 0;
+
+// установка статуса в приложение
+void openJalousie(){
+	statusOfJalousie = 1;
+	setStatus(JALOUSIE, statusOfJalousie);
+	setStatus(GATE-DEV-OPEN, 0);
+	setStatus(GATE-DEV-CLOSE, 0);	
+}
+void closeJalousie(){
+	statusOfJalousie = 0;
+	setStatus(JALOUSIE, statusOfJalousie);
+	setStatus(GATE-DEV-OPEN, 0);
+	setStatus(GATE-DEV-CLOSE, 0);	
+}
+
+//комманда исполнителю открытие жалюзи
+void opensJalousie(){
+	setStatus(JALOUSIE, statusOfJalousie);
+	setStatus(GATE-DEV-CLOSE, 0);
+	setStatus(GATE-DEV-OPEN, 1);
+}
+//комманда исполнителю закрытие жалюзи 
+void closesJalousie(){
+	setStatus(JALOUSIE, statusOfJalousie);
+	setStatus(GATE-DEV-OPEN, 0);
+	setStatus(GATE-DEV-CLOSE, 1);	
+}
+//команда разомкнуть все контакты 
+void stopsJalousie(){
+	setStatus(JALOUSIE, statusOfJalousie);
+	setStatus(GATE-DEV-OPEN, 0);
+	setStatus(GATE-DEV-CLOSE, 0);	
+}
+// команда клик для остановки
+void clicsJalousie(){
+	setStatus(JALOUSIE, statusOfJalousie);
+	setStatus(GATE-DEV-OPEN, 1);
+	setStatus(GATE-DEV-CLOSE, 1);	
+}
+
+V-ID/JALOUSIE {
+//	srvError("Command = %d", opt(0));
+
+	// пришла команда открыть
+	if(opt(0) == 1) {
+			if(statusOfJalousie == 0 || statusOfJalousie == 4) { 
+			// если было закрыто - открыть
+			statusOfJalousie = 3;
+			opensJalousie();
+			cancelDelayedCall(stopsJalousie);
+			cancelDelayedCall(openJalousie);
+			delayedCallMs(stopsJalousie, TIME_CLICK);
+			delayedCall(openJalousie, TIME);	
+			}
+	}
+
+	if(opt(0) == 0) {
+			if(statusOfJalousie == 1 || statusOfJalousie == 4) { 
+			// если было закрыто - открыть
+			statusOfJalousie = 2;
+			closesJalousie();
+			cancelDelayedCall(stopsJalousie);
+			cancelDelayedCall(closeJalousie);
+			delayedCallMs(stopsJalousie, TIME_CLICK);
+			delayedCall(closeJalousie, TIME);	
+			}
+	}
+
+	if(opt(0) == 0xFF) {
+				statusOfJalousie = 4;
+				cancelDelayedCall(closeJalousie);
+				cancelDelayedCall(openJalousie);
+				clicsJalousie();
+				delayedCallMs(stopsJalousie, TIME_CLICK);
+		}	
+}
