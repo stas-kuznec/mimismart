@@ -1,0 +1,219 @@
+/*
+{
+	desc:"MAIN - Климат контроль обогрев/охлождение . с учетом датчика температуры на улице",
+	tag:"import-script",
+	selectArea:true,
+	addItems:[
+		{tag:"item", id:"%TARGET%", name:"NAME", "sub-id":"%SUBID%", "type":"conditioner", "modes":"0x1A", "funs":"0x00", "vane-hor":"0x00", "vane-ver":"0x00", "t-delta":"30", "t-min":"16"},
+	],
+	vars:[
+		{type:"comment",text:"Ввведите название для устройства:"},
+		{name:"NAME",type:"string",required:true,min:3,max:40},
+		{name:"TEMP_OUT_SENSER", type:"devices-list", required:true, filter:["temperature-sensor"], desc:"Датчик температуры на улице", descWidth:370},
+		{type:"comment",text:"Выбирете настройки температуры:"},
+		{name:"TEMP_DEFAULT",type:"number",required:false,defaultValue:23,min:16,max:30,desc:"Температура по умолчанию после перезагрузки СМ", descWidth:370},
+		{name:"TEMP_COOL",type:"number",required:false,defaultValue:22,min:16,max:30,desc:"Температура улицы выше которой включяется охлождения", descWidth:370},
+		{name:"TEMP_HEAT",type:"number",required:false,defaultValue:15,min:0,max:30,desc:"Температура улицы ниже которой включается отопления", descWidth:370},
+		{type:"comment",text:"Выбирете моторовы и перемычеки:"},
+		{name:"MOTOR_FLOW_LEFT", type:"devices-list", required:false, filter:["lamp"], desc:"Насос пола лево", descWidth:370},
+		{name:"MOTOR_FLOW_RIGHT", type:"devices-list", required:false, filter:["lamp"], desc:"Насос пола право", descWidth:370},		
+		{name:"MOTOR_WALL_LEFT", type:"devices-list", required:false, filter:["lamp"], desc:"Насос стен лево", descWidth:370},
+	    {name:"MOTOR_WALL_RIGHT", type:"devices-list", required:false, filter:["lamp"], desc:"Насос стен право", descWidth:370},
+		{name:"TEMP_COOL_JUMPER",type:"number",required:false,defaultValue:22,min:0,max:30,desc:"Температура улицы выше которой включяется перемычка пол-стены для охлождения", descWidth:370},
+		{name:"HEATING_WALL_FLOW_LEFT", type:"devices-list", required:false, filter:["lamp"], desc:"Клапан перемучка пол-стены лево", descWidth:370},
+		{name:"HEATING_WALL_FLOW_RIGHT", type:"devices-list", required:false, filter:["lamp"], desc:"Клапан перемучка пол-стены право", descWidth:370},
+		{name:"TEMP_HEAT_JUMPER",type:"number",required:false,defaultValue:10,min:-30,max:30,desc:"Температура улицы выше которой включяется перемычка пол-стены для отопления", descWidth:370},
+		{name:"HEATING_WALL_LEFT", type:"devices-list", required:false, filter:["lamp"], desc:"Клапан охлождения лево", descWidth:370},
+		{name:"HEATING_WALL_RIGHT", type:"devices-list", required:false, filter:["lamp"], desc:"Клапан охлождения право", descWidth:370},
+		{type:"comment",text:"","style":"color:red;"},
+		
+		{type:"comment",text:"Привязка устройств к нососам","style":"color:red;"},
+		{type:"comment",text:"Выбирете устройства пол лево (Насос пола лево):"},
+		{name:"VHFLOWL1", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 1", descWidth:370},
+		{name:"VHFLOWL2", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 2", descWidth:370},
+		{name:"VHFLOWL3", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 3", descWidth:370},
+		{name:"VHFLOWL4", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 4", descWidth:370},
+		{name:"VHFLOWL5", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 5", descWidth:370},
+		{name:"VHFLOWL6", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 6", descWidth:370},
+
+		{type:"comment",text:"Выбирете устройства пол право (Насос пола право):"},
+		{name:"VHFLOWR1", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 1", descWidth:370},
+		{name:"VHFLOWR2", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 2", descWidth:370},
+		{name:"VHFLOWR3", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 3", descWidth:370},
+		{name:"VHFLOWR4", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 4", descWidth:370},
+		{name:"VHFLOWR5", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 5", descWidth:370},
+		{name:"VHFLOWR6", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 6", descWidth:370},
+		
+		{type:"comment",text:"","style":"color:red;"},
+		{type:"comment",text:"Выбирете устройства стены лево (Насос стены лево):"},
+		{name:"VHWALLL1", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 1", descWidth:370},
+		{name:"VHWALLL2", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 2", descWidth:370},
+		{name:"VHWALLL3", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 3", descWidth:370},
+		{name:"VHWALLL4", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 4", descWidth:370},
+		{name:"VHWALLL5", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 5", descWidth:370},
+		{name:"VHWALLL6", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 6", descWidth:370},
+		
+		{type:"comment",text:"Выбирете устройства стены право (Насос стены право):"},
+		{name:"VHWALLR1", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 1", descWidth:370},
+		{name:"VHWALLR2", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 2", descWidth:370},
+		{name:"VHWALLR3", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 3", descWidth:370},
+		{name:"VHWALLR4", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 4", descWidth:370},
+		{name:"VHWALLR5", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 5", descWidth:370},
+		{name:"VHWALLR6", type:"devices-list", required:false, filter:["lamp","valve-heating"], desc:"Устройство 6", descWidth:370},		
+
+		{name:"CLIMAT",type:"hidden",value:"%TARGET%:%SUBID%"},	
+	]
+}
+*/
+//opt(0)
+// Status 33 - вкл/авто
+// Status 32 - выкл/авто
+// Status 1 - вкл/охлождаем
+// Status 0 - выкл/охлождаем
+// Status 17 - вкл/греем
+// Status 16 - выкл/греем
+
+// opt(1) температура = температура -16 градусов
+
+void onInit(){
+	setStatus(CLIMAT,{33,TEMP_DEFAULT - 16});
+}
+
+u8 stt[2];
+// читаем статус устройства и записываем его в массив
+V-ID/s:30 {
+	getStatus(CLIMAT, &stt);
+}
+
+V-ID/s:30 {
+	// устанваливаем статусы в приложение.	                    	
+	// если выключено то твключаем нагрев/охлождение
+	if (stt[0] == 32 || stt[0] == 0 || stt[0] == 16) { 
+		setStatus(CLIMAT,{0,stt[1]});
+		setStatus(MOTOR_FLOW_LEFT,0);
+		setStatus(MOTOR_FLOW_RIGHT,0);
+		setStatus(MOTOR_WALL_LEFT,0);
+		setStatus(MOTOR_WALL_RIGHT,0);
+	}	
+	// если было авто или охлождаем и температура на улице ниже TEMP_HEAT - греем
+	if ([TEMP_OUT_SENSER:avgm:30]>>8 <= TEMP_HEAT && (stt[0] == 33 || stt[0] == 1)) {
+		//srvError("outside = %d, TEMP_HEAT = %d, TEMP_COOL = %d",[TEMP_OUT_SENSER:avgm:30]>>8,TEMP_HEAT ,TEMP_COOL);
+		//srvError("ГРЕЕМ");		
+		setStatus(CLIMAT,{17,stt[1]});
+	// если было авто или греем и температура ну улице выше TEMP_COOL - охлождаем
+	}else if ([TEMP_OUT_SENSER:avgm:30]>>8 >= TEMP_COOL && (stt[0] == 33 ||  stt[0] == 17)) {
+		//srvError("outside = %d, TEMP_HEAT = %d, TEMP_COOL = %d",[TEMP_OUT_SENSER:avgm:30]>>8,TEMP_HEAT ,TEMP_COOL);	
+		//srvError("ОХЛОЖДАЕМ");		
+		setStatus(CLIMAT,{1,stt[1]});
+	}	
+}
+
+
+// проверка включения/отключения нососов
+V-ID/s:60 {
+	// если хотябы одна термоголовка лево пол открыта включаем носос	
+	if (([VHFLOWL1.0]==1) 
+		#ifdef VHFLOWL2 || ([VHFLOWL2.0]==1) #endif
+		#ifdef VHFLOWL3 || ([VHFLOWL3.0]==1) #endif
+		#ifdef VHFLOWL4 || ([VHFLOWL4.0]==1) #endif
+		#ifdef VHFLOWL5 || ([VHFLOWL5.0]==1) #endif
+		#ifdef VHFLOWL6 || ([VHFLOWL6.0]==1) #endif){
+		//srvError("ОХЛОЖДАЕМ , носос пол лево включен");
+		setStatus(MOTOR_FLOW_LEFT,1);
+	}else{
+		//srvError("ОХЛОЖДАЕМ , носос пол лево выключен");
+		setStatus(MOTOR_FLOW_LEFT,0);
+	}
+	
+	// если хотябы одна термоголовка право пол открыта включаем носос
+	if (([VHFLOWR1.0]==1) 
+		#ifdef VHFLOWR2 || ([VHFLOWR2.0]==1) #endif
+		#ifdef VHFLOWR3 || ([VHFLOWR3.0]==1) #endif
+		#ifdef VHFLOWR4 || ([VHFLOWR4.0]==1) #endif
+		#ifdef VHFLOWR5 || ([VHFLOWR5.0]==1) #endif
+		#ifdef VHFLOWR6 || ([VHFLOWR6.0]==1) #endif){
+		//srvError("ОХЛОЖДАЕМ , носос пол право включен");
+		setStatus(MOTOR_FLOW_RIGHT,1);
+	}else{
+		//srvError("ОХЛОЖДАЕМ , носос пол право выключен");
+		setStatus(MOTOR_FLOW_RIGHT,0);
+	}
+	
+	// если хотябы одна термоголовка  лево стены открыта включаем носос	
+	if (([VHWALLL1.0]==1) 
+		#ifdef VHWALLL2 || ([VHWALLL2.0]==1) #endif
+		#ifdef VHWALLL3 || ([VHWALLL3.0]==1) #endif
+		#ifdef VHWALLL4 || ([VHWALLL4.0]==1) #endif
+		#ifdef VHWALLL5 || ([VHWALLL5.0]==1) #endif
+		#ifdef VHWALLL6 || ([VHWALLL6.0]==1) #endif){
+		//srvError("ОХЛОЖДАЕМ , носос стены лево включен");
+		setStatus(MOTOR_WALL_LEFT,1);
+	}else{
+		//srvError("ОХЛОЖДАЕМ , носос пол лево выключен");
+		setStatus(MOTOR_WALL_LEFT,0);
+	}	
+	// если хотябы одна термоголовка права стены открыта включаем носос	
+	if (([VHWALLR1.0]==1) 
+		#ifdef VHWALLR2 || ([VHWALLR2.0]==1) #endif
+		#ifdef VHWALLR3 || ([VHWALLR3.0]==1) #endif
+		#ifdef VHWALLR4 || ([VHWALLR4.0]==1) #endif
+		#ifdef VHWALLR5 || ([VHWALLR5.0]==1) #endif
+		#ifdef VHWALLR6 || ([VHWALLR6.0]==1) #endif){
+		//srvError("ОХЛОЖДАЕМ , носос стены право включен");
+		setStatus(MOTOR_WALL_RIGHT,1);
+	}else{
+		//srvError("ОХЛОЖДАЕМ , носос пол право выключен");
+		setStatus(MOTOR_WALL_RIGHT,0);
+	}	
+}
+
+// контроль открытия перемычки пол/стены
+V-ID/s:60{
+	// Лево
+	//srvError("Status = %d",stt[0]);
+	if (stt[0] == 1 && [TEMP_OUT_SENSER:avgm:30]>>8 >= TEMP_COOL_JUMPER && ([VHFLOWL1.0]==1
+	#ifdef VHFLOWL2 || ([VHWALLL2.0]==1) #endif
+	#ifdef VHFLOWL3 || ([VHFLOWL3.0]==1) #endif
+	#ifdef VHFLOWL4 || ([VHFLOWL4.0]==1) #endif
+	#ifdef VHFLOWL5 || ([VHFLOWL5.0]==1) #endif
+	#ifdef VHFLOWL6 || ([VHFLOWL6.0]==1) #endif
+	)){
+		//srvError("Включаем перемычку пол/стены лево ОХЛОЖДАЕМ");
+		setStatus(HEATING_WALL_FLOW_LEFT,1);
+	} else if (stt[0] == 17 && [TEMP_OUT_SENSER:avgm:30]>>8 <= TEMP_HEAT_JUMPER  && ([VHWALLL1.0]==1 
+		#ifdef VHWALLL2 || ([VHWALLL2.0]==1) #endif
+		#ifdef VHWALLL3 || ([VHWALLL3.0]==1) #endif
+		#ifdef VHWALLL4 || ([VHWALLL4.0]==1) #endif
+		#ifdef VHWALLL5 || ([VHWALLL5.0]==1) #endif
+		#ifdef VHWALLL6 || ([VHWALLL6.0]==1) #endif
+	)){
+		//srvError("Включаем перемычку пол/стены лево ГРЕЕМ");
+		setStatus(HEATING_WALL_FLOW_LEFT,1);
+	} else {
+		//srvError("Выключаем перемычку пол/стены лево");
+		setStatus(HEATING_WALL_FLOW_LEFT,0);
+	}
+	// Право
+	if (stt[0] == 1 && [TEMP_OUT_SENSER:avgm:30]>>8 >= TEMP_COOL_JUMPER && ([VHFLOWR1.0]==1
+	#ifdef VHFLOWR2 || ([VHFLOWR2.0]==1) #endif
+	#ifdef VHFLOWR3 || ([VHFLOWR3.0]==1) #endif
+	#ifdef VHFLOWR4 || ([VHFLOWR4.0]==1) #endif
+	#ifdef VHFLOWR5 || ([VHFLOWR5.0]==1) #endif
+	#ifdef VHFLOWR6 || ([VHFLOWR6.0]==1) #endif
+	)){
+		//srvError("Включаем перемычку пол/стены право ОХЛОЖДАЕМ");
+		setStatus(HEATING_WALL_FLOW_RIGHT,1);
+	} else if (stt[0] == 17 && [TEMP_OUT_SENSER:avgm:30]>>8 <= TEMP_HEAT_JUMPER  && ([VHWALLR1.0]==1 
+		#ifdef VHWALLR2 || ([VHWALLR2.0]==1) #endif
+		#ifdef VHWALLR3 || ([VHWALLR3.0]==1) #endif
+		#ifdef VHWALLR4 || ([VHWALLR4.0]==1) #endif
+		#ifdef VHWALLR5 || ([VHWALLR5.0]==1) #endif
+		#ifdef VHWALLR6 || ([VHWALLR6.0]==1) #endif
+	)){
+		//srvError("Включаем перемычку пол/стены право ГРЕЕМ");
+		setStatus(HEATING_WALL_FLOW_RIGHT,1);
+	} else {
+		//srvError("Выключаем перемычку пол/стены право");
+		setStatus(HEATING_WALL_FLOW_RIGHT,0);
+	}
+}

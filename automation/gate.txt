@@ -30,10 +30,8 @@ void clickGate(){
 		setStatus(gate-dev, 0xFF);
 }
 
-void vorotaSignal() {
-	
-	u8 strForMess[150];
-	
+void vorotaSignal() {	
+	u8 strForMess[150];	
 	sprintf(strForMess,"Ворота открыты больше %d минут", TIMEOPEN);
 	setStatus(2047:32,&strForMess);
 	

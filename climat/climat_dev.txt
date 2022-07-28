@@ -1,0 +1,108 @@
+/*
+{
+	desc:"Климат контроль обогрев/охлождение пол/стены. Учитывая датчик температуры в помещение и переключение охлаждаем/греем",
+	tag:"import-script",
+	selectArea:true,
+	addItems:[
+		{tag:"item", id:"%TARGET%", name:"NAME", "sub-id":"%SUBID%", "type":"conditioner", "modes":"0x1A", "funs":"0x00", "vane-hor":"0x00", "vane-ver":"0x00", "t-delta":"30", "t-min":"16"},
+	],
+	vars:[
+		{type:"comment",text:"Ввведите название для устройства:"},
+		{name:"NAME",type:"string",required:true,min:3,max:40},
+		
+		{name:"DEV_FLOOR", type:"devices-list", required:true, filter:["lamp"], desc:"Исполнитель пол", descWidth:370},
+	    {name:"DEV_WALL", type:"devices-list", required:true, filter:["lamp"], desc:"Исполнитель стены", descWidth:370},
+        {name:"DEV_MAIN", type:"devices-list", required:true, filter:["conditioner"], desc:"Главный конлиционер - по нему понимаем охлаждаем/греем", descWidth:370},
+
+		{type:"comment",text:"Выбирете настройки температуры:"},
+		{name:"TEMP_DEFAULT",type:"number",required:false,defaultValue:23,min:16,max:30,desc:"Температура по умолчанию после перезагрузки СМ", descWidth:370},
+		{name:"TEMP_OUT_SENSER", type:"devices-list", required:true, filter:["temperature-sensor"], desc:"Датчик температуры в помещение", descWidth:370},
+        {name:"TEMP_LAG",type:"number",required:false,defaultValue:2,min:1,max:9,desc:"Температурный лаг 0.1 = 1", descWidth:370},
+        {name:"TEMP_FLOOW",type:"number",required:false,defaultValue:20,min:1,max:30,desc:"Температура выше которой включаем охлождение в пол", descWidth:370},
+        {name:"TEMP_WALL",type:"number",required:false,defaultValue:10,min:1,max:30,desc:"Температура ниже которой включаем отопление в стены", descWidth:370},
+        {name:"LOG",type:"string",required:false,desc:"Текст для логирования",width:880},
+        {name:"CLIMAT",type:"hidden",value:"%TARGET%:%SUBID%"},	
+	]
+}
+*/
+//opt(0)
+// Status 33 - вкл/авто
+// Status 32 - выкл/авто
+// Status 1 - вкл/охлождаем
+// Status 0 - выкл/охлождаем
+// Status 17 - вкл/греем
+// Status 16 - выкл/греем
+// opt(1)
+// температура (необходимо добавить t-min к значению
+
+void onInit(){
+	setStatus(CLIMAT,{33,TEMP_DEFAULT - 16});
+}
+u8 mtt[2]; // main
+i16 tempAuto = 0;
+i16 tempAutoLagPlus = 0;
+i16 tempAutoLagMinus = 0;
+i16 tempRoom =0;
+u16 temperature-sensors;
+
+V-ID/s:30 {
+    getStatus(DEV_MAIN, &mtt);
+    tempAuto = [CLIMAT.1]*10+160;
+    tempAutoLagPlus = tempAuto+(TEMP_LAG);
+    tempAutoLagMinus = tempAuto-(TEMP_LAG);
+    tempRoom=( [TEMP_OUT_SENSER.1]*10 );
+    tempRoom=tempRoom+([TEMP_OUT_SENSER.0]*10)/250;
+}
+
+V-ID/s:5 {
+  temperature-sensors = [TEMP_OUT_SENSER.1];
+}
+V-ID/s:60 {
+    // синхранизация статуса устройства с main греем/охлождаем    
+    if ([CLIMAT.0] == 33 || [CLIMAT.0] == 1 ||[CLIMAT.0] == 17){
+        setStatus(CLIMAT,mtt[0]);
+    } 
+    #ifdef LOG       
+    srvError(" TempLagPlus = %i, TempRoom= %i , TempLagMinus = %i - LOG", tempAutoLagPlus,tempRoom,tempAutoLagMinus);   
+    #endif
+    // охлаждение
+    if ([CLIMAT.0]==1 && tempRoom > tempAutoLagPlus   &&  tempRoom > tempAutoLagMinus ){
+            setStatus(DEV_WALL,1);
+            #ifdef LOG
+            srvError("СТЕНЫ ВКЛ - ОХЛАЖДАЕМ - LOG");
+            #endif
+            if ([TEMP_OUT_SENSER:avgm:30]>>8 > TEMP_FLOOW ){
+                #ifdef LOG
+                srvError("ПОЛ ВКЛ - ОХЛАЖДАЕМ , Датчик температуры = %d - LOG",[TEMP_OUT_SENSER:avgm:30]>>8);
+                #endif
+                setStatus(DEV_FLOOR,1); 
+            } else {
+                #ifdef LOG
+                srvError("ПОЛ ВЫКЛ - ОХЛАЖДАЕМ, Датчик температуры = %d - LOG",[TEMP_OUT_SENSER:avgm:30]>>8);
+                #endif
+                setStatus(DEV_FLOOR,0);
+            }
+    } else if ([CLIMAT.0]==17 && tempRoom < tempAutoLagPlus   &&  tempRoom < tempAutoLagMinus ){
+            setStatus(DEV_FLOOR,1);
+            #ifdef LOG
+            srvError("ПОЛ ВКЛ - ГРЕЕМ - LOG");
+            #endif
+            if ([TEMP_OUT_SENSER:avgm:30]>>8 < TEMP_WALL ){
+                #ifdef LOG
+                srvError("СТЕНЫ ВКЛ - ГРЕЕМ , Датчик температуры = %d - LOG",[TEMP_OUT_SENSER:avgm:30]>>8);
+                #endif
+                setStatus(DEV_WALL,1);
+            } else {
+                #ifdef LOG
+                srvError("СТЕНЫ ВЫКЛ - ГРЕЕМ, Датчик температуры = %d - LOG",[TEMP_OUT_SENSER:avgm:30]>>8);
+                #endif
+                setStatus(DEV_WALL,0);
+            }
+    } else {
+    #ifdef LOG
+    srvError("ВСЕ ВЫКЛ - LOG");
+    #endif
+    setStatus(DEV_WALL,0);
+    setStatus(DEV_FLOOR,0);
+    }
+}
