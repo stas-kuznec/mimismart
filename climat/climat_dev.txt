@@ -43,20 +43,16 @@ i16 tempAuto = 0;
 i16 tempAutoLagPlus = 0;
 i16 tempAutoLagMinus = 0;
 i16 tempRoom =0;
-u16 temperature-sensors;
 
 V-ID/s:30 {
-    getStatus(DEV_MAIN, &mtt);
-    tempAuto = [CLIMAT.1]*10+160;
-    tempAutoLagPlus = tempAuto+(TEMP_LAG);
-    tempAutoLagMinus = tempAuto-(TEMP_LAG);
-    tempRoom=( [TEMP_OUT_SENSER.1]*10 );
-    tempRoom=tempRoom+([TEMP_OUT_SENSER.0]*10)/250;
+    getStatus(DEV_MAIN, &mtt); // статусы с майн-кондиционера
+    tempAuto = [CLIMAT.1]*10+160; // температура устанволенная в устройстве
+    tempAutoLagPlus = tempAuto+(TEMP_LAG); // температура+температурный лаг для сравнения
+    tempAutoLagMinus = tempAuto-(TEMP_LAG); // температура-температурный лаг для сравнения
+    tempRoom=( [TEMP_OUT_SENSER.1]*10 ); // целое число показания датчика температуры
+    tempRoom=tempRoom+([TEMP_OUT_SENSER.0]*10)/250; // целое+дробное число показания датчика температуры
 }
 
-V-ID/s:5 {
-  temperature-sensors = [TEMP_OUT_SENSER.1];
-}
 V-ID/s:60 {
     // синхранизация статуса устройства с main греем/охлождаем    
     if ([CLIMAT.0] == 33 || [CLIMAT.0] == 1 ||[CLIMAT.0] == 17){
@@ -82,6 +78,7 @@ V-ID/s:60 {
                 #endif
                 setStatus(DEV_FLOOR,0);
             }
+    // отопление       
     } else if ([CLIMAT.0]==17 && tempRoom < tempAutoLagPlus   &&  tempRoom < tempAutoLagMinus ){
             setStatus(DEV_FLOOR,1);
             #ifdef LOG
